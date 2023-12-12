@@ -13,8 +13,8 @@ func main() {
 }
 
 func LeggiNumeri() (numeri []int) {
-	// restituisce un valore numeri di tipo []int in cui sono
-	// memorizzati i valori numerici interi specificati a riga di comando
+	/* restituisce un valore numeri di tipo []int in cui sono
+	memorizzati i valori numerici interi specificati a riga di comando*/
 	numeri = make([]int, len(os.Args)-1)
 	for i, c := range os.Args[1:] {
 		numeri[i], _ = strconv.Atoi(c)
