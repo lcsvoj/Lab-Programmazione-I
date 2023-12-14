@@ -15,7 +15,7 @@ func main() {
 	}
 }
 
-func Primo(n int) bool {
+func ÈPrimo(n int) bool {
 	if n == 0 || n == 1 {
 		return false
 	}
@@ -36,7 +36,7 @@ func tagliaStringa(s string) (primi []int) {
 			}
 			pezzo := s[:i] + s[i+j:]
 			n, _ := strconv.Atoi(pezzo)
-			if Primo(n) {
+			if ÈPrimo(n) {
 				primi = append(primi, n)
 			}
 		}
