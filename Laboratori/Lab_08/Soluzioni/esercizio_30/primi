@@ -25,7 +25,7 @@ func GeneraPrimi(numero string) (primi []int) {
 
 	n, _ := strconv.Atoi(numero)
 
-	if ÈPrimo(n) {
+	if Primo(n) {
 		fmt.Println(n)
 	}
 
@@ -33,7 +33,7 @@ func GeneraPrimi(numero string) (primi []int) {
 		for posizione := range numero[:len(numero)-lunghezza+1] {
 			sottostringa := numero[:posizione] + numero[posizione+lunghezza:]
 			n, _ := strconv.Atoi(sottostringa)
-			if ÈPrimo(n) {
+			if Primo(n) {
 				fmt.Println(n)
 				primi = append(primi, n)
 			}
