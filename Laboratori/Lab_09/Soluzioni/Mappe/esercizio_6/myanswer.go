@@ -41,16 +41,18 @@ func Ocorrenze(s string) map[rune]int {
 	return ocorrenze
 }
 
-func ordinaSequenza(ocorrenze map[rune]int) (ordine []rune) {
+func ordinaSequenza(ocorrenze map[rune]int) []rune {
 	// Restituice una slice con la sequenza ordinata delle rune presenti nell'input
 
-	ordine = make([]rune, len(ocorrenze))
+	var ordine []rune
 	for key, _ := range ocorrenze {
 		ordine = append(ordine, key)
 	}
-	for i := 1; i < len(ordine); i++ {
-		if ordine[i] < ordine[i-1] {
-			ordine[i-1], ordine[i] = ordine[i], ordine[i-1]
+	for i := 0; i < len(ordine); i++ {
+		for j := 0; j < len(ordine)-i-1; j++ {
+			if ordine[j] > ordine[j+1] {
+				ordine[j+1], ordine[j] = ordine[j], ordine[j+1]
+			}
 		}
 	}
 
