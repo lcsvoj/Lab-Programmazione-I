@@ -4,8 +4,7 @@ package main
 1. divisori propri di un numero naturale sono tutti i suoi divisori, tranne il numero stesso;
 2. un numero naturale è perfetto se è uguale alla somma dei suoi divisori propri (per esempio, 6 è perfetto perché 6 = 1+2+3 );
 3. valori letti da riga di comando siano specificati nel formato corretto;
-4. N > MAX > MIN > 0
-*/
+4. N > MAX > MIN > 0 */
 
 import (
 	"fmt"
