@@ -24,6 +24,7 @@ func main() {
 }
 
 func LeggiTesto() (float64, map[string][]string) {
+	fmt.Printf("\n\nStarting the function LeggiTesto()\n\n")
 	scanner := bufio.NewScanner(os.Stdin)
 
 	// salva il saldo iniziale
@@ -33,9 +34,14 @@ func LeggiTesto() (float64, map[string][]string) {
 	// salva le operazioni
 	operazioni := make(map[string][]string)
 	for scanner.Scan() {
+		fmt.Printf("\nReading and splitting the line on ';' occurrences\n")
 		riga := strings.Split(scanner.Text(), ";") // riga = [data, tipo, importo]
+		fmt.Printf("riga = %v\n", riga)
+		fmt.Printf("\nAppending the data to `operazioni`, the date has been padronized as %v and used as a key for the value %v\n", padronizzaData(riga[0]), riga[1:])
 		operazioni[padronizzaData(riga[0])] = append(operazioni[padronizzaData(riga[0])], riga[1:]...)
+		fmt.Printf("operazioni = %v\n", operazioni)
 	}
+	fmt.Printf("\nFinishing the function, returning variables:\n1. saldoIniziale = %v\n2. operazioni = %v\n\n", saldoIniziale, operazioni)
 	return saldoIniziale, operazioni
 }
 
