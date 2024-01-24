@@ -3,7 +3,7 @@
 package main
 
 func main() {
-	// 1. crea un mappa
+	// 1. crea una mappa
 	// 2. nascondi le navi
 	// 3. chiede al giocatore dove vuoi attaccare
 	// 4. esegue l'attacco
