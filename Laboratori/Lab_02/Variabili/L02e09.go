@@ -30,6 +30,8 @@ func main() {
 
 	età1 += 10
 	età2 += 10
+	somma = età1 + età2
+	media = (età1 + età2) / 2
 
 	fmt.Println("Somma età =", somma)
 	fmt.Println("Media età =", media)
