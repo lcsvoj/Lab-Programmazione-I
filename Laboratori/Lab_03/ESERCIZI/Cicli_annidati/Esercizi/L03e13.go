@@ -8,18 +8,17 @@ func main() {
 	fmt.Print("Inserisci un numero: ")
 	fmt.Scan(&n)
 
-	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
+	for i := 0; i < 2*n; i++ {
+		for j := 0; j < 2*n; j++ {
 			if i == j {
 				fmt.Print("*")
-			}
-			if j == n-1 {
+			} else if j == n-1 {
 				fmt.Print("*")
-			}
-			if i == 0 || i == n-1 {
+			} else if (i == 0 && j < n-1) || (i == 2*n-1 && j > n-1) {
 				fmt.Print("*")
+			} else {
+				fmt.Print(" ")
 			}
-			fmt.Print(" ")
 		}
 		fmt.Println()
 	}
