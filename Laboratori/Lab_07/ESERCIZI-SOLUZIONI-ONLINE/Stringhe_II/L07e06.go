@@ -31,7 +31,6 @@ func LeggiTesto() string {
 func TraduciTestoInFarfallino(s string) string {
 	testoFarfalino := ""
 	for _, c := range s {
-
 		if unicode.IsLetter(c) {
 			if unicode.IsUpper(c) {
 				if strings.ContainsRune("AEIOUÀÁÈÉÌÍÓÒÚÙ", c) {
