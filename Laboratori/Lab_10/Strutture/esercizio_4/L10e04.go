@@ -25,7 +25,7 @@ type Contatto struct {
 }
 
 // Rubrica: una slice dove ogni elemento è di tipo Contatto. Ogni elemento della slice rappresenta un contatto inserito nella rubrica. Una slice vuota rappresenta una rubrica vuota.
-type Rubrica []Contatto
+type Rubrica map[string]Contatto
 
 func main() {
 	r := NuovaRubrica()
@@ -72,10 +72,9 @@ func NuovaRubrica() Rubrica {
 // Se la rubrica r contiene già un contatto con identici nome e cognome non avviene nessuna modifica e la rubrica restituita è r stessa;
 func InserisciContatto(r Rubrica, cognome, nome string, via string, numero uint, cap, città string, telefono string) Rubrica {
 
-	for _, contatto := range r {
-		if contatto.Nome == nome && contatto.Cognome == cognome {
-			return r
-		}
+	_, presente := r[nome+cognome]
+	if presente {
+		return r
 	}
 
 	indirizzo := Indirizzo{
@@ -92,20 +91,16 @@ func InserisciContatto(r Rubrica, cognome, nome string, via string, numero uint,
 		Indirizzo: indirizzo,
 	}
 
-	r = append(r, contatto)
+	r[nome+cognome] = contatto
 	return r
 }
 
 // EliminaContatto restituisce una rubrica in cui è eliminato il contatto avente nome e cognome uguali a quelli passati in input.
 // Se tale contatto non esiste, la rubrica restituita è r stessa;
 func EliminaContatto(r Rubrica, cognome, nome string) Rubrica {
-	rAtualizzata := NuovaRubrica()
-	for i, contatto := range r {
-		if contatto.Nome == nome && contatto.Cognome == cognome {
-			rAtualizzata = append(rAtualizzata, r[:i]...)
-			rAtualizzata = append(rAtualizzata, r[i+1:]...)
-			return rAtualizzata
-		}
+	_, presente := r[nome+cognome]
+	if presente {
+		delete(r, nome+cognome)
 	}
 	return r
 }
@@ -126,32 +121,38 @@ func StampaContatto(c Contatto) {
 // """
 func StampaRubrica(r Rubrica) {
 	fmt.Println("Rubrica:")
-	for i, c := range r {
-		fmt.Printf("[%d] - ", i+1)
-		StampaContatto(c)
+	var indexContatto int = 1
+	for _, contatto := range r {
+		fmt.Printf("[%d] - ", indexContatto)
+		StampaContatto(contatto)
+		indexContatto++
 	}
 }
 
 // AggiornaContatto aggiorna i dettagli del contatto identificato da nome e cognome e restituisce la rubrica con il contatto aggiornato.
 // Se il contatto non esiste, viene restituita la rubrica r stessa.
 func AggiornaContatto(rubrica Rubrica, cognome, nome string, via string, numero uint, cap, città string, telefono string) Rubrica {
-	for _, contatto := range rubrica {
-		if contatto.Nome == nome && contatto.Cognome == cognome {
-			rAtualizzata := EliminaContatto(rubrica, cognome, nome)
-			contattoAggiornato := Contatto{
-				Nome:    nome,
-				Cognome: cognome,
-				Indirizzo: Indirizzo{
-					Via:          via,
-					NumeroCivico: numero,
-					Cap:          cap,
-					Città:        città,
-				},
-				Telefono: telefono,
-			}
-			rAtualizzata = append(rAtualizzata, contattoAggiornato)
-			return rAtualizzata
-		}
+
+	indirizzoAggiornato := Indirizzo{
+		Via:          via,
+		Cap:          cap,
+		Città:        città,
+		NumeroCivico: numero,
+	}
+
+	contattoAggiornato := Contatto{
+		Cognome:   cognome,
+		Nome:      nome,
+		Telefono:  telefono,
+		Indirizzo: indirizzoAggiornato,
+	}
+
+	_, presente := rubrica[nome+cognome]
+	if !presente {
+		return rubrica
+	} else {
+		delete(rubrica, nome+cognome)
+		rubrica[nome+cognome] = contattoAggiornato
 	}
 	return rubrica
 }
